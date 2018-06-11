@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<h:outputStylesheet name="css/layout.css"/>
+</h:head> 
+
+<body>
+	<center>
+			<h1>Willkommen im Smartphoneshop!</h1>
+</center>
+
+<ui:composition template="default.xhtml">
+<ui:define name="banner">
+<form action="">
+		<div id="login">
+		   
+			<h:outputLabel class="label" for="user" value="Bitte Benutzerdaten eingeben:" />
+			<h:inputText class="label" id="benutzer" required="true" value="#{loginBean.username}" />
+			<br></br>
+			<h:outputLabel class="label" for="password" value="Bitte Passwort eingeben:" />
+			<h:inputSecret class="label" id="passwort" required="true" value="#{loginBean.password}" />
+			<br></br>
+			<h:commandButton class="button" value="LOGIN"/>
+			
+			<h:form id="login" prependId="false">
+			<h:message for="login" showSummary="true" showDetail="false"/>
+      </h:form>
+      
+		</div>
+	</form>
+</ui:define>
+</ui:composition>
+</body> 
+</html>

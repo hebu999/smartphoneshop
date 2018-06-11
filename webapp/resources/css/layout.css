@@ -1,0 +1,187 @@
+body
+{
+  background-color: #DDDDDD;
+  font-family: Arial;
+}
+#main
+{
+  position:relative;
+  margin: 0px auto;
+  margin-top: 20px;
+  width: 1014px;
+  height: 688px;
+  background-color: #D0D0D0;
+}
+#banner
+{
+  position:absolute;
+  top:5px;
+  left:205px;
+  width: 504px;
+  height: 135px;
+  background-color: #0080c0;
+}
+#banner h1
+{
+    text-align: center;
+    color: orange;
+    margin-top: 20px;
+    font-size: 42px;
+}
+
+#login
+{
+  position:absolute;
+  top:0px;
+  left:509px;
+  width: 295px;
+  height: 135px;
+  background-color: #0080c0;
+}
+
+#menu
+{
+  position: absolute;
+  top:145px;
+  left:5px;
+  padding-top: 20px;
+  margin-bottom:5px;
+  background-color: #0080c0;
+  text-decoration: none;
+  line-height: 22px;
+  width: 195px;
+  height: 518px;
+  /*height+padding-top --> 608px*/
+}
+
+#menu label
+{
+	  margin-left: 30px;
+    margin-top: 20px;
+}
+
+#content
+{
+  position:absolute;
+  top:145px;
+  left:205px;
+  width: 804px;
+  height: 538px;
+  text-align: left;
+  line-height: 22px;
+  background-color: #808080;
+}
+
+.liste
+{
+    margin-left: 20px;
+    line-height: 40px;
+}
+
+.logo
+{
+  position:absolute;
+  top:5px;
+  left:5px;
+}
+
+.backgroundimg
+{
+	  float: left;
+    padding: 5px;
+    width: 392px;
+    height: 259px;
+}
+
+.linkImg
+{
+    position:relative;
+    float: left;
+    width: 370px;
+    height: 240px;
+    margin: 15px;
+    background-color: white;
+}
+
+.linkImg image
+{
+    position:relative;
+    padding: 0px;
+}
+
+.title{
+    font-size: 20px;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.label{
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.button{
+    margin-left: 0px;
+    margin-top: 10px;
+    width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+    
+}
+
+.imgbutton{
+    position:relative;
+    float: left;
+    width: 370px; 
+    height: 240px;
+    margin: 15px;
+    border: 0px;
+    background: white url("#{resource['images/brot.jpg']}") center;
+}
+
+.table-wrapper{
+    display: block;
+    max-height: 538px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.table-odd-row{
+    color: whitesmoke;
+    background-color:  #f0ad4e;
+}
+.table-even-row{
+    background-color:  #f7e1b5;
+}
+.table-header{
+    font-weight: bold;
+    background-color: orange;
+    color: white;
+}
+
+a:link
+{  
+  text-decoration:none;
+  font-family:Arial;
+  color: greenyellow;
+}
+
+a:visited
+{  
+  text-decoration:none;
+  font-family:Arial;
+  color: #000000;
+}
+
+a:hover
+{  
+  text-decoration:none;
+  font-family:Arial;
+  color: #FFFFFF;
+}
+
+li
+{
+  list-style: none;
+  font-family:Tahoma;
+  font-size: 16px;
+}
