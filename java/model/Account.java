@@ -2,8 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 
 /**
@@ -12,11 +12,16 @@ import java.math.BigInteger;
  */
 @Entity
 @Table(name = "accounts")
-@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+@NamedQueries({@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
+    @NamedQuery(name = "Account.findByName",
+        query = "SELECT a FROM Account a WHERE a.accname = :accname"),
+    @NamedQuery(name = "Account.findByAccID",
+        query = "SELECT a FROM Account a WHERE a.accid = :accid")})
 public class Account implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(insertable = false, updatable = false)
   private int accid;
 
@@ -24,17 +29,15 @@ public class Account implements Serializable {
 
   private String accpwd;
 
-  @Column(name = "CURRENT_CONNECTIONS")
-  private BigInteger currentConnections;
-
-  private String host;
-
-  @Column(name = "TOTAL_CONNECTIONS")
-  private BigInteger totalConnections;
-
-  private String user;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAccid", fetch = FetchType.LAZY)
+  private List<Kunde> customerList;
 
   public Account() {}
+
+  public Account(String an, String ap) {
+    this.setAccname(an);
+    this.setAccpwd(ap);
+  }
 
   public int getAccid() {
     return this.accid;
@@ -58,37 +61,5 @@ public class Account implements Serializable {
 
   public void setAccpwd(String accpwd) {
     this.accpwd = accpwd;
-  }
-
-  public BigInteger getCurrentConnections() {
-    return this.currentConnections;
-  }
-
-  public void setCurrentConnections(BigInteger currentConnections) {
-    this.currentConnections = currentConnections;
-  }
-
-  public String getHost() {
-    return this.host;
-  }
-
-  public void setHost(String host) {
-    this.host = host;
-  }
-
-  public BigInteger getTotalConnections() {
-    return this.totalConnections;
-  }
-
-  public void setTotalConnections(BigInteger totalConnections) {
-    this.totalConnections = totalConnections;
-  }
-
-  public String getUser() {
-    return this.user;
-  }
-
-  public void setUser(String user) {
-    this.user = user;
   }
 }

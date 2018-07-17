@@ -2,8 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -14,15 +14,15 @@ import java.sql.Timestamp;
 @NamedQuery(name = "Adresse.findAll", query = "SELECT a FROM Adresse a")
 public class Adresse implements Serializable {
   private static final long serialVersionUID = 1L;
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(insertable = false, updatable = false)
+  private int adrid;
 
   private String ABundLand;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date ADatum;
-
-  @Id
-  @Column(insertable = false, updatable = false)
-  private int adrid;
+  private Timestamp ADatum;
 
   private String ALand;
 
@@ -31,6 +31,12 @@ public class Adresse implements Serializable {
   private String aplz;
 
   private String AStrasse;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAid", fetch = FetchType.LAZY)
+  private List<Kunde> customerList;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkAid", fetch = FetchType.LAZY)
+  private List<Lieferant> deliveryList;
 
   public Adresse() {}
 
@@ -42,7 +48,7 @@ public class Adresse implements Serializable {
     this.ABundLand = ABundLand;
   }
 
-  public Date getADatum() {
+  public Timestamp getADatum() {
     return this.ADatum;
   }
 

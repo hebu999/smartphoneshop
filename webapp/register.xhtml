@@ -1,11 +1,100 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head> 
-<body> 
+<h:head></h:head>
+<body>
 
-</body> 
+	<ui:composition template="WEB-INF/templates/default.xhtml">
+		<h:messages style="color:red;margin:8px;" />
+		<ui:define name="content">
+
+			<h:form id="register">
+				<div id="register">
+
+					<h:panelGrid columns="1">
+						<f:facet name="header">
+							<h:outputText value="Registrieren" styleClass="h2"
+								style="margin-left: 20px;" />
+							<br />
+							<br />
+						</f:facet>
+
+						<h:outputLabel class="label" value="Anrede:" for="anrede" />
+						<h:selectOneMenu id="anrede" required="true"
+							requiredMessage="Anrede erforderlich!"
+							value="#{registerBean.newCustomer.KAnrede}"
+							style="margin: 10px;width: 50px;">
+							<f:selectItem itemValue="Herr" itemLabel="Herr" />
+							<f:selectItem itemValue="Frau" itemLabel="Frau" />
+						</h:selectOneMenu>
+						
+						<h:message for ="anrede" style="color:red;margin:8px;"/>
+                                            
+
+						<h:outputLabel class="label" for="name" value="Bitte Familiennamen eingeben:" />
+						<h:inputText class="label" id="name" required="true"
+							requiredMessage="Familienname erforderlich!"
+							value="#{registerBean.newCustomer.KName}">
+							<f:validator validatorId="nameValidator" />
+						</h:inputText>
+						<h:message for="name" style="color:red;margin:8px;" />
+
+						<h:outputLabel class="label" for="vorname" value="Bitte Vornamen eingeben:" />
+						<h:inputText class="label" id="vorname" required="true"
+							requiredMessage="Vorname erforderlich!"
+							value="#{registerBean.newCustomer.KVName}" />
+							<h:message for="vorname" style="color:red;margin:8px;" />
+
+						<h:outputLabel class="label" for="email"
+							value="Bitte E-Mail adresse eingeben:" />
+						<h:inputText class="label" id="email" value="#{registerBean.newCustomer.KEMail}">
+							<f:validator validatorId="emailValidator" />
+						</h:inputText>
+						<h:message for="email" style="color:red;margin:8px;" />
+
+						<h:outputLabel class="label" for="telefon" value="Bitte Telefonnummer eingeben:" />
+						<h:inputText class="label" id="telefon" required="true"
+							requiredMessage="Telefonnummer erforderlich!"
+							value="#{registerBean.newCustomer.KTel}" placeholder="000">
+							<f:validator validatorId="telValidator" />
+						</h:inputText>
+						<h:message for="telefon" style="color:red;margin:8px;" />
+
+						<h:outputLabel class="label" for="user"
+							value="Bitte Benutzerdaten eingeben:" />
+						<h:inputText class="label" id="user" required="true"
+							requiredMessage="Benutzername erforderlich!"
+							value="#{registerBean.newCustomer.fkAccid.accname}" />
+						<h:message for="user" style="color:red;margin:8px;" />
+
+						<h:outputLabel class="label" for="password"
+							value="Bitte Passwort eingeben:" />
+						<h:inputSecret class="label" id="password" required="true"
+							requiredMessage="Passwort erforderlich!"
+							value="#{registerBean.newCustomer.fkAccid.accpwd}" redisplay="false">
+							<f:validator validatorId="pwdValidator"/>
+							</h:inputSecret>
+						<h:message for="password" style="color:red;margin:8px;" />
+
+						<h:commandButton class="button" value="Daten abschicken"
+							action="#{registerBean.Register()}" />
+						<h:message for="register" style="color:red;margin:8px;" />
+
+						<h:form id="login" prependId="false">
+							<h:message class="label" for="login" showSummary="true"
+								showDetail="false" style="color:red;margin:8px;" />
+						</h:form>
+
+					</h:panelGrid>
+				</div>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+
+</body>
 </html>

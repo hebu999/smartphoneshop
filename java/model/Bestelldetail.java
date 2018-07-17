@@ -3,8 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -16,41 +16,43 @@ import java.sql.Timestamp;
 public class Bestelldetail implements Serializable {
   private static final long serialVersionUID = 1L;
 
-
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
+  @Column(insertable = false)
   private Date BDDatum;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(insertable = false, updatable = false)
   private int bdid;
 
-
   private byte BDMenge;
 
+  private double BDPreisRabatt;
 
-  private BigDecimal BDPreisRabatt;
+  @JoinColumn(name = "FK_PID", referencedColumnName = "pid")
+  @ManyToOne(optional = false, fetch = FetchType.LAZY, targetEntity = Produkt.class)
+  private Produkt fkPid;
 
-
-
-  @Column(name = "FK_BID")
-  private int fkBid;
-
-
-  @Column(name = "FK_PID")
-  private int fkPid;
-
+  @JoinColumn(name = "FK_BID", referencedColumnName = "BID")
+  @ManyToOne(optional = false, fetch = FetchType.LAZY, targetEntity = Bestellung.class)
+  private Bestellung fkBid;
 
   public Bestelldetail() {}
+  
+  public Bestelldetail(int BDMenge, Bestellung bes,Produkt pro) 
+  {
+      this.BDMenge=(byte) BDMenge;
+      this.fkBid=bes;
+      this.fkPid=pro;
+  }
 
   public Date getBDDatum() {
     return this.BDDatum;
   }
 
-  public void setBDDatum(Timestamp BDDatum) {
+  public void setBDDatum(Date BDDatum) {
     this.BDDatum = BDDatum;
   }
-
-
 
   public int getBdid() {
     return this.bdid;
@@ -60,8 +62,6 @@ public class Bestelldetail implements Serializable {
     this.bdid = bdid;
   }
 
-
-
   public byte getBDMenge() {
     return this.BDMenge;
   }
@@ -70,23 +70,19 @@ public class Bestelldetail implements Serializable {
     this.BDMenge = BDMenge;
   }
 
-
-  public BigDecimal getBDPreisRabatt() {
+  public double getBDPreisRabatt() {
     return this.BDPreisRabatt;
   }
 
-  public void setBDPreisRabatt(BigDecimal BDPreisRabatt) {
+  public void setBDPreisRabatt(double BDPreisRabatt) {
     this.BDPreisRabatt = BDPreisRabatt;
   }
 
-
-
-  public int getFkPid() {
+  public Produkt getFkPid() {
     return this.fkPid;
   }
 
-  public void setFkPid(int fkPid) {
+  public void setFkPid(Produkt fkPid) {
     this.fkPid = fkPid;
   }
-
 }

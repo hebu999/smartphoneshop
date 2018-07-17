@@ -1,23 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-<h:outputStylesheet name="css/layout.css"/>
-</h:head> 
+	<h:outputStylesheet name="css/layout.css" />
+</h:head>
 <body>
 
-    <h:button class="button" value="Anmelden" outcome="login"/>
-    <br></br> 
-    <h:button class="button" value="Registrieren" outcome="produkte"/>
-    <br></br>
-    <br></br> 
-    
-    <br></br> 
-    <h:button class="button" value="Kategorien" outcome="produkte"/>
-</body> 
-</html>
+	<ui:composition>
+		<!-- <ui:define name="banner" > -->
 
-<!-- <h:button class="button" value="Produkte" outcome="produkte"/> -->
+		<h:form rendered="#{!LoginBean.loggedIn}">
+
+			<h:button class="button" value="Anmelden" outcome="index" />
+			<br></br>
+			<h:button class="button" value="Registrieren" outcome="register" />
+			<br></br>
+			<br></br>
+
+			<br></br>
+			<h:button class="button" value="Artikel" outcome="produkte" />
+		</h:form>
+
+		<h:form rendered="#{LoginBean.loggedIn}">
+
+			<h:commandButton class="button" value="Abmelden"
+				action="#{LoginBean.doLogout()}" />
+			<br></br>
+			<br></br>
+			<br></br>
+<!-- 			<h:button class="button" value="Produktübersicht" outcome="produkte" /> -->
+			<br></br>
+			<h:button class="button" value="Artikel" outcome="produkte" />
+		</h:form>
+		<h:button class="button" value="Warenkorb" outcome="warenkorb" />
+
+	</ui:composition>
+</body>
+</html>

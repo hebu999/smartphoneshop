@@ -6,7 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Entity;
-import util.JDBCData;
+import util.Data;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class Produkt_alt implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject
-  private JDBCData jdBC;
+  private Data jdBC;
 
   String pName;
   BigDecimal pPreisNetto;

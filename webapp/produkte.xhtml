@@ -1,23 +1,69 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://java.sun.com/jsf/html">
 
-<h:head></h:head> 
-<body> 
-<ui:composition template="/WEB-INF/templates/default.xhtml">
+<h:head></h:head>
+<body>
+	<ui:composition template="/WEB-INF/templates/default.xhtml">
 
-<div id="content">
+		<ui:define name="content">
+			<center>
+				<h1>Produkte</h1>
 
-<h:outputLabel value="#{JDBC.getSQLData()}">
+				<br></br>
 
+				<h:form id="produkt" prependId="false">
+					<h:outputText for="produkt" />
+					<h:message class="label" for="produkt" showDetail="false"
+						showSummary="true" style="color:green;margin:8px;" />
+				</h:form>
+			</center>
+			
+			<table class="table">
 
-</h:outputLabel>
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Preis</th>
+						<th scope="col">Beschreibung</th>
+						<th scope="col">Typ</th>
+						<th scope="col">In den Warenkorb?</th>
 
-</div>
+					</tr>
 
-</ui:composition>
+				</thead>
 
-</body> 
+				<tbody>
+					<ui:repeat value="#{ProductBean.productList}" var="proItem"
+						varStatus="pStat">
+						<tr>
+							<td scope="row">#{proItem.PName}</td>
+
+							<td scope="row">#{proItem.PPreisNetto} €</td>
+
+							<td scope="row">#{proItem.PKomment}</td>
+
+							<td scope="row">#{proItem.PTyp}</td>
+
+							<td scope="row"><h:form>
+									<h:commandButton action="#{WarenKorbBean.addToBasket(proItem)}"
+										value="Rein!" class="button">
+
+									</h:commandButton>
+								</h:form></td>
+						</tr>
+
+					</ui:repeat>
+
+				</tbody>
+			</table>
+
+		</ui:define>
+	</ui:composition>
+
+</body>
 </html>

@@ -19,42 +19,62 @@
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://xmlns.jcp.org/xml/ns/javaee         http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
  <managed-bean>
-  <managed-bean-name>jDBCData</managed-bean-name>
-  <managed-bean-class>org.jboss.tools.examples.util.JDBCData</managed-bean-class>
-  <managed-bean-scope>application</managed-bean-scope>
- </managed-bean>
- <managed-bean>
-  <managed-bean-name>loginBean</managed-bean-name>
+  <managed-bean-name>LoginBean</managed-bean-name>
   <managed-bean-class>controller.LoginBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
-  <managed-property>
-   <property-name>isLoggedin</property-name>
-   <property-class>boolean</property-class>
-   <value/>
-  </managed-property>
-  <managed-property>
-   <property-name>jdBC</property-name>
-   <property-class>util.JDBCData</property-class>
-   <value/>
-  </managed-property>
-  <managed-property>
-   <property-name>login_succesful</property-name>
-   <property-class>boolean</property-class>
-   <value/>
-  </managed-property>
   <managed-property>
    <property-name>password</property-name>
    <property-class>java.lang.String</property-class>
    <value/>
   </managed-property>
   <managed-property>
-   <property-name>serialVersionUID</property-name>
-   <property-class>long</property-class>
+   <property-name>username</property-name>
+   <property-class>java.lang.String</property-class>
+   <value/>
+  </managed-property>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>registerBean</managed-bean-name>
+  <managed-bean-class>controller.RegisterBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>data</managed-bean-name>
+  <managed-bean-class>util.Data</managed-bean-class>
+  <managed-bean-scope>application</managed-bean-scope>
+  <managed-property>
+   <property-name>SQLDataProduct</property-name>
+   <property-class>java.util.List</property-class>
    <value/>
   </managed-property>
   <managed-property>
-   <property-name>username</property-name>
-   <property-class>java.lang.String</property-class>
+   <property-name>accountList</property-name>
+   <property-class>java.util.List</property-class>
+   <value/>
+  </managed-property>
+  <managed-property>
+   <property-name>productList</property-name>
+   <property-class>java.util.List</property-class>
+   <value/>
+  </managed-property>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>ProductBean</managed-bean-name>
+  <managed-bean-class>controller.ProductBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>WarenKorbBean</managed-bean-name>
+  <managed-bean-class>controller.WarenKorbBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+  <managed-property>
+   <property-name>bestelldetailList</property-name>
+   <property-class>java.util.List</property-class>
+   <value/>
+  </managed-property>
+  <managed-property>
+   <property-name>warenkorbList</property-name>
+   <property-class>java.util.List</property-class>
    <value/>
   </managed-property>
  </managed-bean>

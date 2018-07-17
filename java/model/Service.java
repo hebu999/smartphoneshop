@@ -21,6 +21,7 @@ public class Service implements Serializable {
 	private int SDauer;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(insertable=false, updatable=false)
 	private int sid;
 

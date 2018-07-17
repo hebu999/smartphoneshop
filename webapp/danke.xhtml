@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/WEB-INF/templates/default.xhtml">
+		<ui:define name="content">
+
+			<div>
+				<h:form>
+					<center>
+						<h1>Vielen Dank für Ihren Einkauf!</h1>
+					</center>
+					<br></br>
+					<h:outputText value="#{warenkorb.dankeText}" />
+					<br></br>
+
+					<h:commandButton class="Button" action="/produkte.xhtml"
+						value="Zurück zu den Produkten"></h:commandButton>
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+
+
+</body>
+</html>

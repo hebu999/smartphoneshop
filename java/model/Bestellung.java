@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.sql.Timestamp;
 
 
@@ -11,109 +12,112 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@NamedQuery(name="Bestellung.findAll", query="SELECT b FROM Bestellung b")
+@NamedQueries({@NamedQuery(name = "Bestellung.findAll", query = "SELECT b FROM Bestellung b"),
+  @NamedQuery(name = "Bestellung.findDates", query = "SELECT b.BLieferDat FROM Bestellung b")
+, @NamedQuery(name = "Bestellung.findByBesID", query = "SELECT b FROM Bestellung b WHERE b.BID = :BID")
+, @NamedQuery(name = "Bestellung.findByBesStatus", query = "SELECT b FROM Bestellung b WHERE b.BStatus = :BStatus")
+, @NamedQuery(name = "Bestellung.findByBesKommentar", query = "SELECT b FROM Bestellung b WHERE b.BKomment = :BKomment")
+, @NamedQuery(name = "Bestellung.findByBesAenderungsdatum", query = "SELECT b FROM Bestellung b WHERE b.BAendDat = :BAendDat")})
+
 public class Bestellung implements Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date BAendDat;
+  
+  @Temporal(TemporalType.DATE)
+  @Column(insertable = false)
+  private Date BAendDat;
 
-	@Id
-	@Column(insertable=false, updatable=false)
-	private int bid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(insertable = false, updatable = false)
+  private int BID;
 
-	private String BKomment;
+  private String BKomment;
 
-	@Temporal(TemporalType.DATE)
-	private Date BLieferDat;
+  //@Temporal(TemporalType.DATE)
+  private String BLieferDat;
 
-	private String BStatus;
+  private String BStatus;
 
-	private int FK_FilialID;
+  @Column(name = "FK_ID")
+  private int fkId;
 
+  @JoinColumn(name = "FK_KID", referencedColumnName = "KID")
+  @ManyToOne(optional = false, fetch = FetchType.LAZY, targetEntity = Kunde.class)
+  private Kunde fkKid;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkBid", fetch = FetchType.LAZY)
+  private List<Bestelldetail> bestelldetailList;
 
-	@Column(name="FK_ID")
-	private int fkId;
+  public Bestellung() {}
 
+  public Bestellung(int bid, String BKomment, Date BLieferDat, Kunde fkKid) {
+    this.setBid(bid);
+    this.setBKomment(BKomment);
+    //this.setBLieferDat(BLieferDat);
+    this.setFkKid(fkKid);
+  }
+  
+  public Bestellung(Kunde kunde)
+  {
+      this.BStatus = "In Bearbeitung";
+      //this.BLieferDat = new Date();
+      this.fkKid= kunde;
+  }
 
-	@Column(name="FK_KID")
-	private int fkKid;
+  public Date getBAendDat() {
+    return this.BAendDat;
+  }
 
-	public Bestellung() {
-	}
+  public void setBAendDat(Timestamp BAendDat) {
+    this.BAendDat = BAendDat;
+  }
 
+  public int getBid() {
+    return this.BID;
+  }
 
-	public Date getBAendDat() {
-		return this.BAendDat;
-	}
+  public void setBid(int bid) {
+    this.BID = bid;
+  }
 
-	public void setBAendDat(Timestamp BAendDat) {
-		this.BAendDat = BAendDat;
-	}
+  public String getBKomment() {
+    return this.BKomment;
+  }
 
+  public void setBKomment(String BKomment) {
+    this.BKomment = BKomment;
+  }
 
+  public String getBLieferDat() {
+    return this.BLieferDat;
+  }
 
-	public int getBid() {
-		return this.bid;
-	}
+  public void setBLieferDat(String BLieferDat) {
+    this.BLieferDat = BLieferDat;
+  }
 
-	public void setBid(int bid) {
-		this.bid = bid;
-	}
+  public String getBStatus() {
+    return this.BStatus;
+  }
 
+  public void setBStatus(String BStatus) {
+    this.BStatus = BStatus;
+  }
 
+  public int getFkId() {
+    return fkId;
+  }
 
-	public String getBKomment() {
-		return this.BKomment;
-	}
+  public void setFkId(int fkId) {
+    this.fkId = fkId;
+  }
 
-	public void setBKomment(String BKomment) {
-		this.BKomment = BKomment;
-	}
+  public Kunde getFkKid() {
+    return fkKid;
+  }
 
-
-	public Date getBLieferDat() {
-		return this.BLieferDat;
-	}
-
-	public void setBLieferDat(Date BLieferDat) {
-		this.BLieferDat = BLieferDat;
-	}
-
-
-	public String getBStatus() {
-		return this.BStatus;
-	}
-
-	public void setBStatus(String BStatus) {
-		this.BStatus = BStatus;
-	}
-
-
-
-	public int getFK_FilialID() {
-		return this.FK_FilialID;
-	}
-
-	public void setFK_FilialID(int FK_FilialID) {
-		this.FK_FilialID = FK_FilialID;
-	}
-
-
-	public int getFkId() {
-		return this.fkId;
-	}
-
-	public void setFkId(int fkId) {
-		this.fkId = fkId;
-	}
-
-	public int getFkKid() {
-		return this.fkKid;
-	}
-
-	public void setFkKid(int fkKid) {
-		this.fkKid = fkKid;
-	}
-
+  public void setFkKid(Kunde fkKid) {
+    this.fkKid = fkKid;
+  }
 }

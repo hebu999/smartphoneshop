@@ -1,16 +1,19 @@
 package controller;
 
-import javax.ejb.EJB;
+import javax.annotation.ManagedBean;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
-import javax.inject.*;
-import util.JDBCData;
+
+import util.Data;
 import model.Account;
+import model.Kunde;
 import java.util.logging.*;
 
 /**
@@ -18,7 +21,7 @@ import java.util.logging.*;
  * @author Heiner, Steffen
  * @version 1.0
  *
- * @category Diese Klasse ist für die Überprüfung der gelieferten JDBC Daten verantwortlich und
+ * @category Diese Klasse ist für die Überprüfung der gelieferten JPQL Daten verantwortlich und
  *           realisiert bei erfolgreicher Überprüfung die An- und Abmeldung
  *
  *
@@ -33,8 +36,9 @@ public class LoginBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject
-  private JDBCData jdBC;
+  private Data data;
 
+  
   public LoginBean() {
 
   }
@@ -45,13 +49,20 @@ public class LoginBean implements Serializable {
 
   private boolean loggedIn = false;
 
-  private Account account;
+  private Account account = new Account();
+  
+  private Kunde customer;
 
+  
+  /**
+   * Überprüft ob ein Accountname bereits vorhanden ist, sollte dies der Fall sein wird das Passwort abgeglichen und bei Erfolg die Methode DoLogin ausgeführt
+   * @return
+   */
+  
   public void checkLogin() {
 
     try {
-      setAccount(jdBC.findAccountByLoginName(username));
-
+      setAccount(data.findAccountByLoginName(username));   
     }
 
     catch (Exception ex) {
@@ -84,17 +95,30 @@ public class LoginBean implements Serializable {
       }
     }
   }
+  
+  
 
+  /**
+   * Setzt die Variable loggedIn auf "true" und weist dem Kundenobject über die Methode in der Data klasse den Accountnamen zu
+   * 
+   * @return index.html
+   */
   public String doLogin() {
 
     this.loggedIn = true;
     logger.info("loggedIn=True");
+setCustomer(data.findCustomer(account.getAccname()));
+    
     FacesMessage m = new FacesMessage("Login erfolgreich!");
     FacesContext.getCurrentInstance().addMessage("loggedin", m);
 
     return "/index.xhtml";
   }
 
+  /**
+   * Setzt die loggedIn Variable auf false
+   * @return index.yhtml
+   */
   public String doLogout() {
 
     if (this.loggedIn) {
@@ -106,12 +130,17 @@ public class LoginBean implements Serializable {
     context.getExternalContext().invalidateSession();
     context.getExternalContext().getSession(true);
 
-    context.addMessage("login",
+    context.addMessage("test",
         new FacesMessage(FacesMessage.SEVERITY_INFO, "Auf Wiedersehen!", "Tschüss"));
 
     return "/index.xhtml";
   }
+  
+  
 
+  /**
+   * Setter and Getter
+   */
   public String getUsername() {
     return username;
   }
@@ -143,6 +172,14 @@ public class LoginBean implements Serializable {
   public void setAccount(Account account) {
     this.account = account;
   }
+  
+  public Kunde getCustomer() {
+    return customer;
+  }
+
+  public void setCustomer(Kunde customer) {
+    this.customer = customer;
+  }
 }
 
 /*
@@ -158,7 +195,7 @@ public class LoginBean implements Serializable {
  * (username.equalsIgnoreCase(accountListCheck.get(i).getAccname()) &&
  * password.equals(accountListCheck.get(i).getAccpwd())) {
  * logger.info("Abgleich erfolgreich, mache doLogin()"); doLogin(); break; } } i++; } } catch
- * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+ * (SQLException e) { //Auto-generated catch block e.printStackTrace(); }
  * 
  */
 

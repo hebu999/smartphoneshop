@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/WEB-INF/templates/default.xhtml">
+		<ui:define name="content">
+		<center>
+		<h1>
+		Warenkorb
+		</h1>
+		</center>
+		
+		<br></br>
+			<h:dataTable value="#{WarenKorbBean.warenkorbList}" var="warenKorb">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Produktname" />
+					</f:facet>
+					<h:outputText value="#{warenKorb.product.PName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Netto-Einzelpreis " />
+					</f:facet>
+					<h:outputText value="#{warenKorb.product.PPreisNetto} €" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Menge" />
+					</f:facet>
+					<h:outputText value="#{warenKorb.amount}" />
+
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Netto-Mengenpreis" />
+					</f:facet>
+					<h:outputText value="#{warenKorb.quantityPrice} €" />
+				</h:column>
+
+			</h:dataTable>
+			<h:form>
+				<h:commandButton class="button" rendered="#{LoginBean.loggedIn}"
+					action="/bestellung.xhtml" value="Bestellen">
+				</h:commandButton>
+				<h:commandButton class="button" rendered="#{!LoginBean.loggedIn}"
+					action="/login.xhtml" value="Zum Bestellen bitte erst anmelden!"></h:commandButton>
+
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

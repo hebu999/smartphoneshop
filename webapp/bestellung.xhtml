@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/default.xhtml">
+		<ui:define name="content">
+
+			<center>
+				<h1>Bestellung</h1>
+			</center>
+
+			<div class="row">
+				<h:form>
+					<table class="table">
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Netto-Einzelpreis</th>
+							<th scope="col">Menge</th>
+							<th scope="col">Netto-Mengenpreis</th>
+						</tr>
+
+						<ui:repeat value="#{WarenKorbBean.warenkorbList}" var="waren">
+
+							<tr>
+								<td scope="row">#{waren.product.PName}</td>
+								<td>#{waren.product.PPreisNetto} €</td>
+								<td>#{waren.amount}</td>
+								<td>#{waren.quantityPrice} €</td>
+
+							</tr>
+
+						</ui:repeat>
+
+						<tr>
+
+						</tr>
+
+						<tr>
+
+							<th scope="col">Gesamt-Nettopreis</th>
+							<td scope="row">#{WarenKorbBean.totalPriceNetto} €</td>
+
+						</tr>
+
+
+
+					</table>
+
+					<h:outputLabel for="date" value="Bitte Lieferdatum eingeben: " />
+
+					<h:inputText class="label" placeholder="yyyy-MM-dd" id="date" value="#{WarenKorbBean.deliveryDate}" />
+          
+					<h:outputLabel for="time" value="Bitte Zeit eingeben: " />
+
+					<h:selectOneMenu id="time" value="#{WarenKorbBean.deliveryTime}">
+						<f:selectItem itemLabel="11 Uhr" itemValue="11:00:00" />
+						<f:selectItem itemLabel="12 Uhr" itemValue="12:00:00" />
+						<f:selectItem itemLabel="13 Uhr" itemValue="13:00:00" />
+						<f:selectItem itemLabel="14 Uhr" itemValue="14:00:00" />
+
+					</h:selectOneMenu>
+
+					<h:commandButton class="button" action="/danke.xhtml"
+						value="Bestellung abschicken">
+						<f:actionListener
+							binding="#{WarenKorbBean.order(LoginBean.customer)}">
+						</f:actionListener>
+					</h:commandButton>
+
+				</h:form>
+
+
+
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

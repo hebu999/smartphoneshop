@@ -7,7 +7,7 @@ import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import util.JDBCData;
+import util.Data;
 
 
 /**
@@ -29,7 +29,7 @@ public class Account_alt implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject
-  private JDBCData jdBC;
+  private Data jdBC;
 
   String accname;
   String accpwd;
